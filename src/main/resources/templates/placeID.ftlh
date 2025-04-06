@@ -5,16 +5,13 @@
   [#include "_common/head.ftlh"]
 </head>
 <body  style="background-image: url('/img/parking.jpg'); background-position: center; background-repeat: no-repeat">
-<!-- Třída „container“ je z Bootstrapu a zařídí, že stránka se na šířku nebude zvětšovat donekonečna -->
 <div class="container d-flex flex-column flex-grow-1 justify-content-between bg-white p-0" style="background-color: white">
   [#include "_common/header.ftlh"]
 
   <h2 class="mt-5 mb-3 px-4 text-center">Rekapitulace</h2>
 
   <div class="px-4 py-3 my-4 justify-content-center d-flex flex-wrap">
-    <!-- Rámeček s rádiusem a tabulkou -->
     <div class="col-md-6 border rounded p-3" style="background-color: #f9f9f9;">
-      <!-- První řádek: Datum příjezdu a Datum odjezdu -->
       <div class="row align-items-center border-bottom pb-2 mb-2">
         <div class="col-6 text-start">
           <p class="mb-0"><strong>Datum příjezdu: ${dateOfArrival}</strong></p>
@@ -23,7 +20,6 @@
           <p class="mb-0"><strong>Datum odjezdu:${dateOfDeparture} </strong> </p>
         </div>
       </div>
-      <!-- Druhý řádek: Číslo parkovacího místa a Patro -->
       <div class="row align-items-center border-bottom pb-2 mb-2">
         <div class="col-6 text-start">
           <p class="mb-0"><strong>Číslo parkovacího místa:</strong> ${parkingPlace.parkingNumber?default('Není dostupné')}</p>
@@ -32,7 +28,6 @@
           <p class="mb-0"><strong>Patro:</strong> ${parkingPlace.numberOfFlour?default('Není dostupné')}</p>
         </div>
       </div>
-      <!-- Třetí řádek: Cena -->
       <div class="row">
         <div class="col-12 text-start">
           <p class="mb-0"><strong>Cena:</strong> ${parkingPlace.newPrice?default('Není dostupné')} Kč</p>
@@ -43,7 +38,6 @@
 
   <div class="container mt-4 mb-4">
     <form action="/{id}" method="post" class="mx-auto" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
-      <!-- Osobní údaje -->
       <fieldset style="border: 2px solid rgba(77,71,71,0.4); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
         <legend style="color: rgb(5,19,19); font-weight: bold; padding: 0 10px;">Osobní údaje</legend>
         <div style="margin-bottom: 15px;">
@@ -72,7 +66,6 @@
         </div>
       </fieldset>
 
-      <!-- Údaje o vozidle -->
       <fieldset style="border: 2px solid rgba(77,71,71,0.4); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
         <legend style="color: rgb(5,19,19); font-weight: bold; padding: 0 10px;">Údaje o vozidle</legend>
         <div style="margin-bottom: 15px;">
@@ -83,7 +76,6 @@
         </div>
       </fieldset>
 
-      <!-- Podmínky -->
       <fieldset style="border: 2px solid rgba(77,71,71,0.4); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
         <legend style="color: rgb(5,19,19); font-weight: bold; padding: 0 10px;">Podmínky</legend>
         <div style="margin-bottom: 15px;">
@@ -100,7 +92,6 @@
         </div>
       </fieldset>
 
-      <!-- Tlačítko Odeslat -->
       <div style="text-align: end;">
         <button type="submit" style="background-color: #007BFF; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
           Odeslat

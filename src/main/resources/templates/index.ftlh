@@ -5,20 +5,15 @@
     [#include "_common/head.ftlh"]
 </head>
 <body  style="background-image: url('/img/parking.jpg'); background-position: center; background-repeat: no-repeat">
-<!-- Třída „container“ je z Bootstrapu a zařídí, že stránka se na šířku nebude zvětšovat donekonečna -->
 <div class="container p-0" style="background-color: white">
-        <!-- Třídy z Bootstrapu, které vytvoří menu. Třída „active“ označuje aktuální stránku – na stránkách pro datum a čas bude na odpovídajícíh položkách.-->
     [#include "_common/header.ftlh"]
 
-    <!-- Třídy Bootstrapu, zajistí centrování textu. -->
     <div class="px-4 py-5 my-5 text-center" style="margin-bottom: 20px">
 
         <h3 style="margin-bottom: 40px">Vyberte datum a rezervujte si své místo</h3>
 
         <div class="row mb-5 justify-content-center align-items-center">
-            <!-- Obalovací div s rámečkem a zaoblenými rohy -->
             <div class="col-md-6 rounded p-6" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
-                <!-- Formulář pro výběr dat -->
                 <form action="/" method="get" class="d-flex justify-content-between align-items-end">
                     <div class="mb-1">
                         <label for="arrival-date" class="form-label fw-bold">Vyberte datum příjezdu</label>
@@ -29,13 +24,11 @@
                         <input id="departure-date" name="dateOfDeparture" class="form-control" type="date" value="${dateOfDeparture}"/>
                     </div>
 
-                    <!-- Tlačítko Zobrazit detail na stejné úrovni s inputy -->
                     <div class="mb-1 d-flex justify-content-center align-items-center">
                         <button type="submit" class="btn btn-primary">Hledej</button>
                     </div>
                 </form>
 
-                <!-- Vybraný počet dní pod celým formulářem -->
                 <div class="row mt-3">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <div class="fw-bold">Vybraný počet dní: ${parkingDate}</div>
