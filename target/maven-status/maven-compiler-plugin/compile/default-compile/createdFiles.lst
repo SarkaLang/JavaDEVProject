@@ -1,7 +1,0 @@
-org/example/parking/ParkingRepository.class
-org/example/parking/ParkingController.class
-org/example/parking/ParkingService.class
-org/example/entity/ParkingPlace.class
-org/example/entity/ParkingDate.class
-org/example/Application.class
-org/example/entity/ParkingPerson.class
