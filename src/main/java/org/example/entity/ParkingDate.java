@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import jakarta.validation.constraints.FutureOrPresent;
 
-public class ParkingDate {
+public final class ParkingDate {
 
     @FutureOrPresent(message = "Datum musí být dnešní nebo do budoucnosti")
     private LocalDate dateOfArrival;

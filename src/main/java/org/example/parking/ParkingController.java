@@ -69,7 +69,7 @@ public class ParkingController {
         return detail;
     }
 
-    @PostMapping("/{id}")
+     @PostMapping("/{id}")
     public Object form(@Valid @ModelAttribute ParkingPlace parkingPlace, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {

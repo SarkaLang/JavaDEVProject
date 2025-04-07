@@ -2,8 +2,6 @@ package org.example.parking;
 
 import org.example.entity.ParkingPlace;
 import org.example.entity.ParkingDate;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

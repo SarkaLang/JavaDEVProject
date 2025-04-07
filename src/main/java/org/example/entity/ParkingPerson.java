@@ -2,7 +2,7 @@ package org.example.entity;
 
 import jakarta.validation.constraints.*;
 
-public class ParkingPerson {
+public final class ParkingPerson {
 
     @NotBlank(message = "Jméno je povinné.")
     @Size(max=64)
