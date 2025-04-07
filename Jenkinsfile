@@ -8,7 +8,7 @@ pipeline {
 
 
     environment {
-        registryCredential = 'ecr:us-east-1:awscreds'
+        registryCredential = 'ecr:us-east-1:aswcreds'
         appRegistry = "207567776873.dkr.ecr.us-east-1.amazonaws.com/javadevprojectappimg"
         JavaDEVProjectRegistry = "https://207567776873.dkr.ecr.us-east-1.amazonaws.com"
     }
