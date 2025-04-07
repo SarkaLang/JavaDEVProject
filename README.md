@@ -8,9 +8,10 @@ Technologies
 - Nexus
 - Sonar Sonatype
 - AWS ECR (IAM - create USER with Access Keys, ECR Registry(Docker registry from AWS))
+- ECS
 
 Pipeline:
-Dev(git) –> Github -> Fetch code(git) Jenkins -> Build (Maven) -> Unit Test (Maven) -> Code Analysis (Sonarqube) -> Upload Artifact (Nexus Sonatype) 
+Dev(git) –> Github -> Fetch code(git) Jenkins -> Build (Maven) -> Unit Test (Maven) -> Code Analysis (Sonarqube) -> Upload Artifact (Docker Build) -> ECR -> ECS 
 
 Aplikace:
 Jednoduchá aplikace sloužící pro výběr parkovacího místa v soukromém parkovacím domě.
