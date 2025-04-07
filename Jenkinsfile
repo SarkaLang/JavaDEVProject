@@ -67,5 +67,26 @@ pipeline {
          }
 
 
+        stage('UploadArtifact') {
+          steps {
+             nexusArtifactUploader(
+              nexusVersion: 'nexus3',
+              protocol: 'http',
+              nexusUrl: '172.31.29.17:8081',
+              groupId: 'QA',
+              version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+              repository: 'javadev-repo',
+              credentialsId: 'nexus-devlog',
+              artifacts: [
+                [artifactId: 'JavaParkingProject',
+                 classifier: '',
+                 file: 'target/JavaParkingProject-1.0.war',
+                 type: 'war']
+               ]
+            )
+          }
+        }
+
+
    }
 }
