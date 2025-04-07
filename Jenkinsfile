@@ -31,6 +31,12 @@ pipeline {
             }
         }
 
+        	stage('INTEGRATION TEST'){
+            steps {
+                sh 'mvn verify -DskipUnitTests'
+            }
+        }
+
         	stage('Checkstyle Analysis'){
             steps {
                 sh 'mvn checkstyle:checkstyle'
