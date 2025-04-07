@@ -4,9 +4,10 @@ Předpoklady
 
 Technologies
 - AWS EC2 (Jenkins, Nexus, Sonar)
-- Jenkins
+- Jenkins - plugins(docker, docker pipeline, ecr, aws sdk), install docker engine, install AWS cli
 - Nexus
 - Sonar Sonatype
+- AWS ECR (IAM - create USER with Access Keys, ECR Registry(Docker registry from AWS))
 
 Pipeline:
 Dev(git) –> Github -> Fetch code(git) Jenkins -> Build (Maven) -> Unit Test (Maven) -> Code Analysis (Sonarqube) -> Upload Artifact (Nexus Sonatype) 

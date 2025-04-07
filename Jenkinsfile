@@ -5,13 +5,22 @@ pipeline {
     maven "MAVEN3.9"
     jdk "JDK21"
   }
-  
-  stages {
-      stage('Fetch code') {
-        steps{
-         git branch: 'main', url: 'https://github.com/SarkaLang/JavaDEVProject.git'
+
+
+    environment {
+        registryCredential = 'ecr:us-east-1:awscreds'
+        appRegistry = "207567776873.dkr.ecr.us-east-1.amazonaws.com/javadevprojectappimg"
+        JavaDEVProjectRegistry = "https://207567776873.dkr.ecr.us-east-1.amazonaws.com"
+    }
+   
+ stages {
+        stage('Fetch code') {
+            steps {
+               git branch: 'docker1', url: 'https://github.com/SarkaLang/JavaDEVProject.git'
+            }
+
         }
-       }
+
 
       stage('Build') {
        steps{
@@ -25,25 +34,25 @@ pipeline {
         }
        }
 
-       	stage('UNIT TEST'){
+      stage('UNIT TEST'){
             steps {
                 sh 'mvn test'
             }
         }
 
-        	stage('INTEGRATION TEST'){
+      stage('INTEGRATION TEST'){
             steps {
                 sh 'mvn verify -DskipUnitTests'
             }
         }
 
-        	stage('Checkstyle Analysis'){
+      stage('Checkstyle Analysis'){
             steps {
                 sh 'mvn checkstyle:checkstyle'
             }
         }
 
-          stage('Sonar Code Analysis'){
+      stage('Sonar Code Analysis'){
             environment {
               scannerHome = tool 'sonar7'
             }
@@ -64,7 +73,7 @@ pipeline {
             }
         }
 
-         stage ("Qualisty Gate") {
+      stage ("Qualisty Gate") {
           steps {
             timeout(time: 10, unit: 'MINUTES') {
                waitForQualityGate abortPipeline: true
@@ -73,7 +82,7 @@ pipeline {
          }
 
 
-        stage('UploadArtifact') {
+      stage('UploadArtifact') {
           steps {
              nexusArtifactUploader(
               nexusVersion: 'nexus3',
@@ -92,6 +101,28 @@ pipeline {
             )
           }
         }
+
+      stage('Build App Image') {
+          steps {
+       
+            script {
+                dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
+                }
+          }
+    
+        }
+
+        stage('Upload App Image') {
+          steps{
+            script {
+              docker.withRegistry( JavaDEVProjectRegistry, registryCredential ) {
+                dockerImage.push("$BUILD_NUMBER")
+                dockerImage.push('latest')
+              }
+            }
+          }
+        }
+
 
 
    }
