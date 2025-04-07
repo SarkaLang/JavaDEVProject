@@ -1,5 +1,5 @@
 FROM maven:3.9.9-eclipse-temurin-21-jammy AS BUILD_IMAGE
-RUN git https://github.com/SarkaLang/JavaDEVProject.git
+RUN git clone https://github.com/SarkaLang/JavaDEVProject.git
 RUN cd JavaDEVProject && git checkout docker1 && mvn install
 
 FROM tomcat:10-jdk21
