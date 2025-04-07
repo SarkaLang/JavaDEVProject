@@ -3,7 +3,7 @@ LABEL "Project"="JavaDEVProject"
 LABEL "Author"="SarkaLang"
 
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY target/JavaParkingProject-v2.war /usr/local/tomcat/webapps/ROOT.war
+COPY target/JavaParkingProject-1.0.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
