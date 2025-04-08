@@ -37,7 +37,7 @@
   </div>
 
   <div class="container mt-4 mb-4">
-    <form action="/{id}" method="post" class="mx-auto" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
+    <form action="/${parkingPlace.id}" method="post" class="mx-auto" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
       <fieldset style="border: 2px solid rgba(77,71,71,0.4); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
         <legend style="color: rgb(5,19,19); font-weight: bold; padding: 0 10px;">Osobní údaje</legend>
         <div style="margin-bottom: 15px;">
