@@ -5,7 +5,6 @@
   [#include "_common/head.ftlh"]
 </head>
 <body  style="background-image: url('/img/parking.jpg'); background-position: center; background-repeat: no-repeat" class="d-flex flex-column min-vh-100">
-<!-- Třída „container“ je z Bootstrapu a zařídí, že stránka se na šířku nebude zvětšovat donekonečna -->
 <div class="container d-flex flex-column flex-grow-1 justify-content-between bg-white p-0" style="background-color: white">
   [#include "_common/header.ftlh"]
 

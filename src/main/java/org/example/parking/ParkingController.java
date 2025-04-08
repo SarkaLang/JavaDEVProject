@@ -69,14 +69,20 @@ public class ParkingController {
         return detail;
     }
 
-     @PostMapping("/{id}")
-    public Object form(@Valid @ModelAttribute ParkingPlace parkingPlace, BindingResult bindingResult) {
-
+    @PostMapping("/{id}")
+    public ModelAndView form(
+        @Valid @ModelAttribute ParkingPlace parkingPlace,
+        BindingResult bindingResult,
+        @RequestParam(value = "dateOfArrival", required = false) String dateOfArrival,
+        @RequestParam(value = "dateOfDeparture", required = false) String dateOfDeparture) {
         if (bindingResult.hasErrors()) {
-            return "placeID";
+            ModelAndView model = new ModelAndView("placeID");
+            model.addObject("parkingPlace", parkingPlace);
+            model.addObject("dateOfArrival", dateOfArrival);
+            model.addObject("dateOfDeparture", dateOfDeparture);
+            return model;
         }
-
+    
         return new ModelAndView("/placeReservation");
-
     }
 }
