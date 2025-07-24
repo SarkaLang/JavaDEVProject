@@ -53,19 +53,16 @@ public class ParkingController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView parkingPlaceID(@PathVariable int id, @RequestParam(value = "dateOfArrival", required = false) String dateOfArrivalStr, @RequestParam(value = "dateOfDeparture", required = false) String dateOfDepartureStr) {
+    public ModelAndView parkingPlaceID(@PathVariable int id, @RequestParam(value = "dateOfArrival", required = false) String dateOfArrivalStr, @RequestParam(value = "dateOfDeparture", required = false) String dateOfDepartureStr, long days) {
         ModelAndView detail =  new ModelAndView("placeID");
-        ParkingPlace place = service.findById((long) id).orElse(null);
-        if (place != null) {
-            detail.addObject("placeID", place);
-            detail.addObject("parkingPlace", place);
-        } else {
-            detail.addObject("placeID", place);
-            detail.addObject("parkingPlace", place);
-        }
+        ParkingPlace place = service.getParkingPlaceByIndex(id);
+        place.setNewPrice(service.getPrice(place, days));
 
+        detail.addObject("placeID", place);
+        detail.addObject("parkingPlace", place);
         detail.addObject("dateOfArrival", dateOfArrivalStr);
         detail.addObject("dateOfDeparture", dateOfDepartureStr);
+        detail.addObject("days", days);
         return detail;
     }
 

@@ -2,6 +2,10 @@ package org.example.parking;
 
 import org.example.entity.ParkingPlace;
 import org.example.entity.ParkingDate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,9 +17,12 @@ import java.util.Optional;
 public class ParkingService {
 
     private final ParkingRepository repository;
+    private final ParkingRepository parkingRepository;
 
-    public ParkingService(ParkingRepository repository) {
+    @Autowired
+    public ParkingService(ParkingRepository repository, ParkingRepository parkingRepository) {
         this.repository = repository;
+        this.parkingRepository = parkingRepository;
     }
 
     public List<ParkingPlace> findAll() {
@@ -24,6 +31,18 @@ public class ParkingService {
 
     public Optional<ParkingPlace> findById(Long id) {
         return repository.findById(id);
+    }
+
+    public ParkingPlace getParkingPlaceByIndex(int index) {
+        if (index < 0) {
+            throw new IllegalArgumentException("index should be greater than 0");
+        }
+
+        Pageable pageable = PageRequest.of(index, 1, Sort.by("id"));
+        List<ParkingPlace> results = parkingRepository.findAll(pageable).getContent();
+
+        return results.stream()
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("index out of range"));
     }
 
     public long getNumberOfDays(String dateOfArrivalStr, String dateOfDepartureStr) {

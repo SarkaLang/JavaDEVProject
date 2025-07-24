@@ -65,7 +65,7 @@
                 <td>${parkingplace.newPrice} Kč</td>
                 <td>
                     [#if parkingplace.status == true]
-                    <a href="/${parkingplace?index}?dateOfArrival=${dateOfArrival}&dateOfDeparture=${dateOfDeparture}" class="btn btn-primary">Vybrat</a>
+                    <a href="/${parkingplace?index}?dateOfArrival=${dateOfArrival}&dateOfDeparture=${dateOfDeparture}&days=${parkingDate}" class="btn btn-primary">Vybrat</a>
                     [#else]
                     [/#if]
                 </td>
