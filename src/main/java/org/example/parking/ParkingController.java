@@ -1,85 +1,76 @@
 package org.example.parking;
 
-import jakarta.validation.Valid;
-import org.example.entity.ParkingDate;
+import lombok.RequiredArgsConstructor;
 import org.example.entity.ParkingPlace;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
 
 
 @Validated
 @Controller
+@RequiredArgsConstructor
 public class ParkingController {
 
     private final ParkingService service;
 
-    public ParkingController(ParkingService service) {this.service = service;}
-
     @GetMapping("/")
-    public ModelAndView mainPaige(@Valid @ModelAttribute ParkingDate parkingDate) {
+    public String index(Model model, ParkingPlace parkingPlace) {
 
-        ModelAndView result = new ModelAndView("index");
+        LocalDate dateOfArrival = parkingPlace.getDateOfArrival() != null ? parkingPlace.getDateOfArrival() : LocalDate.now();
+        LocalDate dateOfDeparture = parkingPlace.getDateOfDeparture() != null ? parkingPlace.getDateOfDeparture() : LocalDate.now();
 
-        String dateOfArrival = parkingDate.getDateOfArrival() != null ? parkingDate.getDateOfArrival().toString() : String.valueOf(LocalDate.now());
-        String dateOfDeparture = parkingDate.getDateOfDeparture() != null ? parkingDate.getDateOfDeparture().toString() : String.valueOf(LocalDate.now());
 
-        result.addObject("dateOfArrival", dateOfArrival);
-        result.addObject("dateOfDeparture", dateOfDeparture);
+        model.addAttribute("dateOfArrival", dateOfArrival.toString());
+        model.addAttribute("dateOfDeparture", dateOfDeparture.toString());
 
-        long numberOfDays = service.getNumberOfDays(dateOfArrival, dateOfDeparture);
-        result.addObject("parkingDate", numberOfDays);
+        long numberOfDays = ChronoUnit.DAYS.between(dateOfArrival, dateOfDeparture);
+        model.addAttribute("parkingDate", numberOfDays);
 
         if (numberOfDays > 0) {
-
-            List<ParkingPlace> parkingPlace = service.findAll().stream()
-                    .peek(place -> place.setNewPrice(service.getPrice(place, numberOfDays)))
-                    .toList();
-            result.addObject("parkingPlace", parkingPlace);
+            model.addAttribute("parkingPlace", service.calculateNewPrice(numberOfDays));
         }
 
-        return result;
+        return "index";
     }
 
-    @GetMapping("/login")
-    public ModelAndView loginPage() {
-        return new ModelAndView("login");
-    }
 
     @GetMapping("/{id}")
-    public ModelAndView parkingPlaceID(@PathVariable int id, @RequestParam(value = "dateOfArrival", required = false) String dateOfArrivalStr, @RequestParam(value = "dateOfDeparture", required = false) String dateOfDepartureStr, long days) {
-        ModelAndView detail =  new ModelAndView("placeID");
-        ParkingPlace place = service.getParkingPlaceByIndex(id);
-        place.setNewPrice(service.getPrice(place, days));
+    public String placeID(Model model, String dateOfArrival, String dateOfDeparture, @PathVariable int id, @RequestParam (required = false) int numberOfFlour, @RequestParam (required = false) int parkingNumber, long numberOfDays) {
 
-        detail.addObject("placeID", place);
-        detail.addObject("parkingPlace", place);
-        detail.addObject("dateOfArrival", dateOfArrivalStr);
-        detail.addObject("dateOfDeparture", dateOfDepartureStr);
-        detail.addObject("days", days);
-        return detail;
+        ParkingPlace parkingPlace = service.getParkingPlaceByIndex(id);
+
+       model.addAttribute("parkingPrice", service.calculateNewPrice(numberOfDays));
+        model.addAttribute("dateOfArrival", dateOfArrival);
+        model.addAttribute("dateOfDeparture", dateOfDeparture);
+        model.addAttribute("numberOfFlour", numberOfFlour);
+        model.addAttribute("parkingNumber", parkingNumber);
+        model.addAttribute("parkingPlace", parkingPlace);
+
+        return "placeID";
     }
 
-    @PostMapping("/{id}")
-    public ModelAndView form(
-        @Valid @ModelAttribute ParkingPlace parkingPlace,
+    @PutMapping("/{id}")
+    public String form(
+        Model model,  ParkingPlace parkingPlace,
         BindingResult bindingResult,
         @RequestParam(value = "dateOfArrival", required = false) String dateOfArrival,
         @RequestParam(value = "dateOfDeparture", required = false) String dateOfDeparture) {
-        if (bindingResult.hasErrors()) {
+
+     /*   if (bindingResult.hasErrors()) {
             ModelAndView model = new ModelAndView("placeID");
             model.addObject("parkingPlace", parkingPlace);
             model.addObject("dateOfArrival", dateOfArrival);
             model.addObject("dateOfDeparture", dateOfDeparture);
             return model;
-        }
+        }*/
     
-        return new ModelAndView("/placeReservation");
+        return "placeReservation";
     }
 }

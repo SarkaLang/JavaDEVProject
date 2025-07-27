@@ -15,12 +15,11 @@ Aplikace:
 Jednoduchá aplikace sloužící pro výběr parkovacího místa v soukromém parkovacím domě.
 
 In progress (development):
--logika prvního načtení bez ParkingPlace
+- front-end -> api
+- připojení k databázi (SQL Oracle Developer) pomocí api
 -objednávkový formulář místa
--/error zobrazování
 -správné validace - není plně funkční
--načítání z databáze
--databáze - napojení, s databází v VS code nelze manipulovat
 -přihlašování
 -zabezpečení
+- testy
 

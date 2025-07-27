@@ -14,10 +14,10 @@
 
         <div class="row mb-5 justify-content-center align-items-center">
             <div class="col-md-6 rounded p-6" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
-                <form action="/" method="get" class="d-flex justify-content-between align-items-end">
+                <form action="/" method="get" id="filterForm" class="d-flex justify-content-between align-items-end">
                     <div class="mb-1">
                         <label for="arrival-date" class="form-label fw-bold">Vyberte datum příjezdu</label>
-                        <input id="arrival-date" name="dateOfArrival" class="form-control" type="date" value="${dateOfArrival}" />
+                        <input id="arrival-date" name="dateOfArrival" class="form-control" type="date" value="${dateOfArrival}"/>
                     </div>
                     <div class="mb-1">
                         <label for="departure-date" class="form-label fw-bold">Vyberte datum odjezdu</label>
@@ -31,7 +31,7 @@
 
                 <div class="row mt-3">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
-                        <div class="fw-bold">Vybraný počet dní: ${parkingDate}</div>
+                        <div class="fw-bold">Vybraný počet dní: ${parkingDate} </p></div>
                     </div>
                 </div>
             </div>
@@ -51,30 +51,57 @@
                 <th scope="col"></th>
             </tr>
             </thead>
-            <tbody>
-            [#list parkingPlace as parkingplace]
-            <tr>
-                <td>
-                 <span class="fw-bold
-                   [#if parkingplace.status == true]text-success[#else]text-danger[/#if]">
-                   [#if parkingplace.status == true]VOLNO[#else]OBSAZENO[/#if]
-                 </span>
-                </td>
-                <td>${parkingplace.parkingNumber}</td>
-                <td>${parkingplace.numberOfFlour}</td>
-                <td>${parkingplace.newPrice} Kč</td>
-                <td>
-                    [#if parkingplace.status == true]
-                    <a href="/${parkingplace?index}?dateOfArrival=${dateOfArrival}&dateOfDeparture=${dateOfDeparture}&days=${parkingDate}" class="btn btn-primary">Vybrat</a>
-                    [#else]
-                    [/#if]
-                </td>
-            </tr>
-            [/#list]
+            <tbody id="parkingTableBody">
+        <!-- Načtení dat z parking tabulky -->
             </tbody>
         </table>
-
     </div>
+
+    [#noparse]
+    <script>
+        const dateOfArrival = "${dateOfArrival}";
+        const dateOfDeparture = "${dateOfDeparture}";
+        const parkingDate = "${parkingDate}";
+
+        document.getElementById('filterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            fetch('http://localhost:8080/api/parking-places')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Received data:", data);
+                    const tbody = document.getElementById('parkingTableBody');
+                    tbody.innerHTML = '';
+
+                    data.forEach(place => {
+
+                        const statusText = place.status
+                            ? '<span class="text-success fw-bold">VOLNO</span>'
+                            : '<span class="text-danger fw-bold">OBSAZENO</span>';
+
+                        const action = place.status
+                            ? `<a  href="/\${place.index}?dateOfArrival=${dateOfArrival}&dateOfDeparture=${dateOfDeparture}&days=${parkingDate}" class="btn btn-primary btn-sm">Vybrat</a>`
+                            : '<span class="text-muted"></span>';
+
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                           <td>${statusText}</td>
+                           <td>${place.parkingNumber}</td>
+                           <td>${place.numberOfFlour} </td>
+                           <td>${place.newPrice} Kč</td>
+                           <td>${action}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Chyba při načítání:', error);
+                });
+        });
+    </script>
+    [/#noparse]
+
 
     [#include "_common/footer.ftlh"]
 </div>

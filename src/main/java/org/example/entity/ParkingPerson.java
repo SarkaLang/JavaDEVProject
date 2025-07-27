@@ -1,12 +1,19 @@
 package org.example.entity;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+@Entity
+@Table(name = "parking_person")
 public final class ParkingPerson {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotBlank(message = "Jméno je povinné.")
     @Size(max=64)
-    private String name;
+    private String firstName;
 
     @NotBlank(message = "Příjmení je povinné.")
     @Size(max=64)
@@ -31,9 +38,10 @@ public final class ParkingPerson {
 
     public ParkingPerson() {}
 
-    public ParkingPerson(String surname, String name, String email, int phoneNumber, String licensePlate, boolean termsConditions, boolean marketingConsent) {
+    public ParkingPerson(long id, String surname, String firstName, String email, int phoneNumber, String licensePlate, boolean termsConditions, boolean marketingConsent) {
+        this.id = id;
         this.surname = surname;
-        this.name = name;
+        this.firstName = firstName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.licensePlate = licensePlate;
@@ -41,12 +49,16 @@ public final class ParkingPerson {
         this.marketingConsent = marketingConsent;
     }
 
+    public long getId() {return id;}
+
+    public void setId(long id) { this.id = id; }
+
     public String getName() {
-        return name;
+        return firstName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.firstName = name;
     }
 
     public String getSurname() {
