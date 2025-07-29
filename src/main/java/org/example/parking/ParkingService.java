@@ -39,7 +39,7 @@ public class ParkingService {
     }
 
 
-    public List<ParkingPlace> calculateNewPrice(long numberOfDays) {
+      public List<ParkingPlace> calculateNewPrice(long numberOfDays) {
 
         return repository.findAll().stream()
                 .peek(place -> place.setNewPrice(getPrice(place, numberOfDays)))

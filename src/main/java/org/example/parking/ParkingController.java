@@ -1,5 +1,6 @@
 package org.example.parking;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.entity.ParkingPlace;
 import org.springframework.stereotype.Controller;
@@ -46,31 +47,28 @@ public class ParkingController {
 
         ParkingPlace parkingPlace = service.getParkingPlaceByIndex(id);
 
-       model.addAttribute("parkingPrice", service.calculateNewPrice(numberOfDays));
+        return getString(model, dateOfArrival, dateOfDeparture, numberOfFlour, parkingNumber, numberOfDays, parkingPlace);
+    }
+
+    @PutMapping("/{id}")
+    public String form(
+            @PathVariable int id, String dateOfArrival, String dateOfDeparture, @RequestParam (required = false) int numberOfFlour, @RequestParam (required = false) int parkingNumber, long numberOfDays, @Valid  @ModelAttribute ParkingPlace parkingPlace, BindingResult bindingResult, Model model ) {
+
+       if (bindingResult.hasErrors()) {
+           return getString(model, dateOfArrival, dateOfDeparture, numberOfFlour, parkingNumber, numberOfDays, parkingPlace);
+       }
+    
+        return "placeReservation";
+    }
+
+    private String getString(@Valid Model model, String dateOfArrival, String dateOfDeparture, @RequestParam(required = false) int numberOfFlour, @RequestParam(required = false) int parkingNumber, long numberOfDays, ParkingPlace parkingPlace) {
+        model.addAttribute("parkingPrice", service.calculateNewPrice(numberOfDays));
         model.addAttribute("dateOfArrival", dateOfArrival);
         model.addAttribute("dateOfDeparture", dateOfDeparture);
         model.addAttribute("numberOfFlour", numberOfFlour);
         model.addAttribute("parkingNumber", parkingNumber);
         model.addAttribute("parkingPlace", parkingPlace);
-
+        model.addAttribute("parkingDate", numberOfDays);
         return "placeID";
-    }
-
-    @PutMapping("/{id}")
-    public String form(
-        Model model,  ParkingPlace parkingPlace,
-        BindingResult bindingResult,
-        @RequestParam(value = "dateOfArrival", required = false) String dateOfArrival,
-        @RequestParam(value = "dateOfDeparture", required = false) String dateOfDeparture) {
-
-     /*   if (bindingResult.hasErrors()) {
-            ModelAndView model = new ModelAndView("placeID");
-            model.addObject("parkingPlace", parkingPlace);
-            model.addObject("dateOfArrival", dateOfArrival);
-            model.addObject("dateOfDeparture", dateOfDeparture);
-            return model;
-        }*/
-    
-        return "placeReservation";
     }
 }

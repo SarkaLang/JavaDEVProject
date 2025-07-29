@@ -3,9 +3,13 @@ package org.example.parking;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.entity.ParkingPlace;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.example.entity.ParkingPlace;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/parking-places")
@@ -26,7 +30,7 @@ public class ParkingPlaceRestController {
 
     @PutMapping("/{id}")
     public ParkingPlace update(@Valid @RequestBody ParkingPlace parkingPlace) {
-        parkingPlace.setId(parkingPlace.getId());
+        parkingPlace.setStatus(true);
         return service.save(parkingPlace);
     }
 }

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.FutureOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Entity
 @Table(name = "parking_places")
@@ -112,4 +113,5 @@ public final class ParkingPlace {
     public void setDateOfDeparture(LocalDate dateOfDeparture) {
         this.dateOfDeparture = dateOfDeparture;
     }
+
 }
