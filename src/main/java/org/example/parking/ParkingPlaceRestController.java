@@ -27,10 +27,4 @@ public class ParkingPlaceRestController {
     public ParkingPlace getById(@PathVariable int id) {
         return service.getParkingPlaceByIndex(id);
     }
-
-    @PutMapping("/{id}")
-    public ParkingPlace update(@Valid @RequestBody ParkingPlace parkingPlace) {
-        parkingPlace.setStatus(true);
-        return service.save(parkingPlace);
-    }
 }

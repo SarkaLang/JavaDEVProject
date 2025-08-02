@@ -3,6 +3,7 @@ package org.example.parking;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.entity.ParkingPlace;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,13 +51,21 @@ public class ParkingController {
         return getString(model, dateOfArrival, dateOfDeparture, numberOfFlour, parkingNumber, numberOfDays, parkingPlace);
     }
 
-    @PutMapping("/{id}")
-    public String form(
-            @PathVariable int id, String dateOfArrival, String dateOfDeparture, @RequestParam (required = false) int numberOfFlour, @RequestParam (required = false) int parkingNumber, long numberOfDays, @Valid  @ModelAttribute ParkingPlace parkingPlace, BindingResult bindingResult, Model model ) {
+    @PutMapping("/save")
+    public String saveUser(
+              String dateOfArrival, String dateOfDeparture, @RequestParam (required = false) int numberOfFlour, @RequestParam (required = false) int parkingNumber, long numberOfDays, @Valid  @ModelAttribute ParkingPlace parkingPlace, BindingResult bindingResult, Model model ) {
 
        if (bindingResult.hasErrors()) {
            return getString(model, dateOfArrival, dateOfDeparture, numberOfFlour, parkingNumber, numberOfDays, parkingPlace);
        }
+
+        ParkingPlace updateParkingPlace = service.findById(parkingPlace.getId()).orElseThrow();
+        updateParkingPlace.setStatus(false);
+        updateParkingPlace.setNewPrice(parkingPlace.getNewPrice());
+        updateParkingPlace.setDateOfDeparture(parkingPlace.getDateOfDeparture());
+        updateParkingPlace.setDateOfArrival(parkingPlace.getDateOfArrival());
+
+       service.save(updateParkingPlace);
     
         return "placeReservation";
     }

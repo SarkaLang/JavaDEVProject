@@ -10,8 +10,6 @@
 
   <h2 class="mt-5 mb-3 px-4 text-center">Rekapitulace</h2>
 
-  <form action="/" method="put" class="mx-auto" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
-
   <div class="px-4 py-3 my-4 justify-content-center d-flex flex-wrap">
     <div class="col-md-6 border rounded p-3" style="background-color: #f9f9f9;">
       <div class="row align-items-center border-bottom pb-2 mb-2">
@@ -41,17 +39,17 @@
     </div>
   </div>
 
-    [#if errors?? && errors.hasErrors()]
-      <div class="alert alert-danger">
-        <ul>
-          [#list errors.allErrors as error]
-            <li>${error.defaultMessage}</li>
-          [/#list]
-        </ul>
-      </div>
-    [/#if]
-
   <div class="container mt-4 mb-4">
+
+    <form action="/save" method="post" class="mx-auto" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
+      <input type="hidden" name="_method" value="put">
+      <input type="hidden" name="id" value="${parkingPlace.id}">
+      <input type="hidden" name="dateOfArrival" value="${dateOfArrival}">
+      <input type="hidden" name="dateOfDeparture" value="${dateOfDeparture}">
+      <input type="hidden" name="parkingNumber" value="${parkingPlace.parkingNumber}">
+      <input type="hidden" name="numberOfFlour" value="${parkingPlace.numberOfFlour}">
+      <input type="hidden" name="numberOfFlour" value="${parkingPlace.newPrice}">
+      <input type="hidden" name="numberOfDays" value="${parkingDate}">
 
       <fieldset style="border: 2px solid rgba(77,71,71,0.4); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
         <legend style="color: rgb(5,19,19); font-weight: bold; padding: 0 10px;">Osobní údaje</legend>
@@ -108,7 +106,7 @@
       </fieldset>
 
       <div class="text-center">
-        <a href="/${parkingPlace.id}?dateOfArrival=${dateOfArrival}&dateOfDeparture=${dateOfDeparture}&parkingNumber=${parkingPlace.parkingNumber}&numberOfFlour=${parkingPlace.numberOfFlour}&numberOfDays=${parkingDate}" class="btn btn-primary text-white btn-lg">Odeslat</a>
+        <button type="submit" class="btn btn-primary text-white btn-lg">Odeslat</button>
       </div>
     </form>
   </div>
