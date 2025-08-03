@@ -25,7 +25,7 @@ public final class ParkingPerson {
 
     @NotBlank(message = "Telefonní číslo je povinné.")
     @Pattern(regexp = "\\+?[0-9]{9,15}", message = "Telefonní číslo musí mít 9 až 15 číslic a může začínat znakem +.")
-    private int phoneNumber;
+    private String phoneNumber;
 
     @NotBlank(message = "SPZ je povinná.")
     private String licensePlate;
@@ -38,7 +38,7 @@ public final class ParkingPerson {
 
     public ParkingPerson() {}
 
-    public ParkingPerson(long id, String surname, String firstName, String email, int phoneNumber, String licensePlate, boolean termsConditions, boolean marketingConsent) {
+    public ParkingPerson(long id, String surname, String firstName, String email, String phoneNumber, String licensePlate, boolean termsConditions, boolean marketingConsent) {
         this.id = id;
         this.surname = surname;
         this.firstName = firstName;
@@ -77,11 +77,11 @@ public final class ParkingPerson {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

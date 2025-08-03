@@ -41,14 +41,14 @@
 
   <div class="container mt-4 mb-4">
 
-    <form action="/save" method="post" class="mx-auto" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
+    <form action="/save" method="post" modelAttribute="parkingReservationRequest" class="mx-auto" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
       <input type="hidden" name="_method" value="put">
       <input type="hidden" name="id" value="${parkingPlace.id}">
       <input type="hidden" name="dateOfArrival" value="${dateOfArrival}">
       <input type="hidden" name="dateOfDeparture" value="${dateOfDeparture}">
       <input type="hidden" name="parkingNumber" value="${parkingPlace.parkingNumber}">
       <input type="hidden" name="numberOfFlour" value="${parkingPlace.numberOfFlour}">
-      <input type="hidden" name="numberOfFlour" value="${parkingPlace.newPrice}">
+      <input type="hidden" name="newPrice" value="${parkingPlace.newPrice?c}">
       <input type="hidden" name="numberOfDays" value="${parkingDate}">
 
       <fieldset style="border: 2px solid rgba(77,71,71,0.4); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
@@ -60,8 +60,8 @@
                  required>
         </div>
         <div style="margin-bottom: 15px;">
-          <label for="lastName" style="display: block; margin-bottom: 5px;">Příjmení</label>
-          <input type="text" id="lastName" name="lastName"
+          <label for="surname" style="display: block; margin-bottom: 5px;">Příjmení</label>
+          <input type="text" id="surname" name="surname"
                  style="width: 100%; padding: 8px; border: 2px solid rgba(77,71,71,0.4); border-radius: 5px;"
                  required>
         </div>
@@ -72,8 +72,8 @@
                  required>
         </div>
         <div style="margin-bottom: 15px;">
-          <label for="phone" style="display: block; margin-bottom: 5px;">Telefon</label>
-          <input type="tel" id="phone" name="phone"
+          <label for="phoneNumber" style="display: block; margin-bottom: 5px;">Telefon</label>
+          <input type="text" id="phoneNumber" name="phoneNumber"
                  style="width: 100%; padding: 8px; border: 2px solid rgba(77,71,71,0.4); border-radius: 5px;"
                  required>
         </div>

@@ -1,4 +1,4 @@
-package org.example.parking;
+package org.example.person;
 
 import org.example.entity.ParkingPerson;
 import org.springframework.data.jpa.repository.JpaRepository;

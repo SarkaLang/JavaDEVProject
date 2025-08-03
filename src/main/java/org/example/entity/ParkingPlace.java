@@ -5,7 +5,6 @@ import jakarta.validation.constraints.FutureOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Entity
 @Table(name = "parking_places")
@@ -25,10 +24,10 @@ public final class ParkingPlace {
 
     private Integer newPrice;
 
-    @FutureOrPresent(message = "Datum musí být dnešní nebo do budoucnosti")
+    @FutureOrPresent(message = "Datum nesmí být do minulosti")
     private LocalDate dateOfArrival;
 
-    @FutureOrPresent(message = "Datum musí být dnešní nebo do budoucnosti")
+    @FutureOrPresent(message = "Datum nesmí být do minulosti")
     private LocalDate dateOfDeparture;
 
     public ParkingPlace() {

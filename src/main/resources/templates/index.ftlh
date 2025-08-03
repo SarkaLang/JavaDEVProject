@@ -14,14 +14,20 @@
 
         <div class="row mb-5 justify-content-center align-items-center">
             <div class="col-md-6 rounded p-6" style="max-width: 50%; border: 2px solid rgba(47,170,211,0.4); border-radius: 10px; padding: 20px;">
-                <form action="/" method="get" id="filterForm" class="d-flex justify-content-between align-items-end">
+                <form action="/find" method="get" id="filterForm" class="d-flex justify-content-between align-items-end">
                     <div class="mb-1">
                         <label for="arrival-date" class="form-label fw-bold">Vyberte datum příjezdu</label>
                         <input id="arrival-date" name="dateOfArrival" class="form-control" type="date" value="${dateOfArrival}"/>
+                        [#if arrivalError??]
+                            <div class="alert alert-danger">${arrivalError}</div>
+                        [/#if]
                     </div>
                     <div class="mb-1">
                         <label for="departure-date" class="form-label fw-bold">Vyberte datum odjezdu</label>
                         <input id="departure-date" name="dateOfDeparture" class="form-control" type="date" value="${dateOfDeparture}"/>
+                        [#if departureError??]
+                            <div class="alert alert-danger">${departureError}</div>
+                        [/#if]
                     </div>
 
                     <div class="mb-1 d-flex justify-content-center align-items-center">
@@ -31,8 +37,11 @@
 
                 <div class="row mt-3">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
-                        <div class="fw-bold">Vybraný počet dní: ${parkingDate} </p></div>
+                        <div class="fw-bold">Vybraný počet dní: ${parkingDate?default("")} </p></div>
                     </div>
+                    [#if numberOfDaysError??]
+                        <div class="alert alert-danger">${numberOfDaysError}</div>
+                    [/#if]
                 </div>
             </div>
 
@@ -62,10 +71,22 @@
                     </td>
                     <td>${parkingplace.parkingNumber}</td>
                     <td>${parkingplace.numberOfFlour}</td>
+                    [#if parkingplace.status == true]
                     <td>${parkingplace.newPrice} Kč</td>
+                    [#else]
+                        <td></td>
+                    [/#if]
                     <td>
                         [#if parkingplace.status == true]
-                            <a href="/${parkingplace?index}?dateOfArrival=${dateOfArrival}&dateOfDeparture=${dateOfDeparture}&numberOfDays=${parkingDate}&parkingNumber=${parkingplace.parkingNumber}&numberOfFlour=${parkingplace.numberOfFlour}" class="btn btn-primary">Vybrat</a>
+                            <form method="get" action="/${parkingplace?index}" modelAttribute="parkingReservationRequest">
+                                <input type="hidden" name="dateOfArrival" value="${dateOfArrival}">
+                                <input type="hidden" name="dateOfDeparture" value="${dateOfDeparture}">
+                                <input type="hidden" name="numberOfDays" value="${parkingDate}">
+                                <input type="hidden" name="newPrice" value="${parkingplace.newPrice?c}">
+                                <input type="hidden" name="numberOfFlour" value="${parkingplace.numberOfFlour}">
+                                <input type="hidden" name="parkingNumber" value="${parkingplace.parkingNumber}">
+                                <button type="submit" class="btn btn-primary">Vybrat</button>
+                            </form>
                         [#else]
                         [/#if]
                     </td>
