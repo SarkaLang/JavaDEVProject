@@ -2,6 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -10,10 +11,12 @@ import java.time.LocalDate;
 @Table(name = "parking_places")
 public final class ParkingPlace {
 
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Setter
     private boolean status;
 
     private int parkingNumber;
@@ -22,6 +25,7 @@ public final class ParkingPlace {
 
     private int price;
 
+    @Setter
     private Integer newPrice;
 
     @FutureOrPresent(message = "Datum nesmí být do minulosti")
@@ -51,48 +55,24 @@ public final class ParkingPlace {
         return status;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public int getParkingNumber() {
         return parkingNumber;
-    }
-
-    public void setParkingNumber(int parkingNumber) {
-        this.parkingNumber = parkingNumber;
     }
 
     public int getNumberOfFlour() {
         return numberOfFlour;
     }
 
-    public void setNumberOfFlour(int numberOfFlour) {
-        this.numberOfFlour = numberOfFlour;
-    }
-
     public int getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public Integer getNewPrice() {
         return newPrice;
     }
 
-    public void setNewPrice(Integer newPrice) {
-        this.newPrice = newPrice;
-    }
-
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public LocalDate getDateOfArrival() {

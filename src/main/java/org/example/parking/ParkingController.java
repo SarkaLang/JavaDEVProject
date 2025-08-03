@@ -111,7 +111,7 @@ public class ParkingController {
         updateParkingPlace.setDateOfArrival(request.getDateOfArrival());
 
         ParkingPerson person = new ParkingPerson();
-        person.setName(request.getFirstName());
+        person.setFirstName(request.getFirstName());
         person.setEmail(request.getEmail());
         person.setSurname(request.getSurname());
         person.setPhoneNumber(request.getPhoneNumber());

@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0593bc78-db07-47df-818a-7423e9e165b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/ParkingReservationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/person/PersonRestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/person/PersonService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/ParkingPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/ParkingPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/ParkingReservationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/ParkingReservationRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/ParkingPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/ParkingPlace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/parking/ParkingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/parking/ParkingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/parking/ParkingPlaceRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/parking/ParkingPlaceRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/parking/PersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/person/PersonRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.ftlh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/placeID.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/placeID.ftlh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +116,7 @@
       <workItem from="1753355858644" duration="13637000" />
       <workItem from="1753518224860" duration="285000" />
       <workItem from="1753518539700" duration="27411000" />
-      <workItem from="1753715088328" duration="38050000" />
+      <workItem from="1753715088328" duration="38790000" />
     </task>
     <servers />
   </component>
