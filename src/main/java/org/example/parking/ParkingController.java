@@ -119,6 +119,7 @@ public class ParkingController {
         person.setMarketingConsent(request.isMarketingConsent());
         person.setTermsConditions(request.isTermsConditions());
 
+       updateParkingPlace.setReservedBy(person);
        personService.save(person);
        service.save(updateParkingPlace);
     

@@ -2,38 +2,52 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
 @Entity
 @Table(name = "parking_person")
 public final class ParkingPerson {
 
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Setter
     @NotBlank(message = "Jméno je povinné.")
     @Size(max=64)
     private String firstName;
 
+    @Setter
     @NotBlank(message = "Příjmení je povinné.")
     @Size(max=64)
     private String surname;
 
+    @Setter
     @NotBlank(message = "E-mail je povinný.")
     @Email(message = "E-mail musí mít platný formát.")
     private String email;
 
+    @Setter
     @NotBlank(message = "Telefonní číslo je povinné.")
     @Pattern(regexp = "\\+?[0-9]{9,15}", message = "Telefonní číslo musí mít 9 až 15 číslic a může začínat znakem +.")
     private String phoneNumber;
 
+    @Setter
     @NotBlank(message = "SPZ je povinná.")
     private String licensePlate;
 
+    @Setter
     @AssertTrue(message = "Chybí souhlas s všeobecnými obchodbími podmínkami.")
     private boolean termsConditions;
 
 
+    @Setter
     private boolean marketingConsent;
 
     public ParkingPerson() {}
@@ -49,63 +63,6 @@ public final class ParkingPerson {
         this.marketingConsent = marketingConsent;
     }
 
-    public long getId() {return id;}
-
-    public void setId(long id) { this.id = id; }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String name) {
-        this.firstName = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-
-    public boolean isTermsConditions() {
-        return termsConditions;
-    }
-
-    public void setTermsConditions(boolean termsConditions) {
-        this.termsConditions = termsConditions;
-    }
-
-    public boolean isMarketingConsent() {
-        return marketingConsent;
-    }
-
-    public void setMarketingConsent(boolean marketingConsent) {
-        this.marketingConsent = marketingConsent;
-    }
+    @OneToMany(mappedBy = "reservedBy")
+    private List<ParkingPlace> reservedPlaces;
 }

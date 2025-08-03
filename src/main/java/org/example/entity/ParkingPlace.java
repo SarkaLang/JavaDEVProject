@@ -2,6 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
+import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,32 +12,53 @@ import java.time.LocalDate;
 @Table(name = "parking_places")
 public final class ParkingPlace {
 
+    @Getter
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Getter
     @Setter
     private boolean status;
 
+    @Getter
     private int parkingNumber;
 
+    @Getter
     private int numberOfFlour;
 
+    @Getter
     private int price;
 
+    @Getter
     @Setter
     private Integer newPrice;
 
+    @Getter
     @FutureOrPresent(message = "Datum nesmí být do minulosti")
     private LocalDate dateOfArrival;
 
+    @Getter
     @FutureOrPresent(message = "Datum nesmí být do minulosti")
     private LocalDate dateOfDeparture;
 
     public ParkingPlace() {
 
     }
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private ParkingPerson reservedBy;
+
+    public ParkingPerson getReservedBy() {
+        return reservedBy;
+    }
+
+    public void setReservedBy(ParkingPerson reservedBy) {
+        this.reservedBy = reservedBy;
+    }
+
 
     public ParkingPlace(boolean status, int parkingNumber, int numberOfFlour, int price, Integer newPrice,  LocalDate dateOfArrival, LocalDate dateOfDeparture) {
         this.status = status;
@@ -51,41 +73,9 @@ public final class ParkingPlace {
     public ParkingPlace(LocalDate dateOfArrival, LocalDate dateOfDeparture) {
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public int getParkingNumber() {
-        return parkingNumber;
-    }
-
-    public int getNumberOfFlour() {
-        return numberOfFlour;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public Integer getNewPrice() {
-        return newPrice;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public LocalDate getDateOfArrival() {
-        return dateOfArrival;
-    }
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     public void setDateOfArrival(LocalDate dateOfArrival) {
         this.dateOfArrival = dateOfArrival;
-    }
-
-    public LocalDate getDateOfDeparture() {
-        return dateOfDeparture;
     }
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
